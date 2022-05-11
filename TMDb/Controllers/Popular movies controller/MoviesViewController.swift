@@ -14,15 +14,14 @@ class MoviesViewController: UIViewController {
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     private var movieViewModel : MoviesViewModel!
-    private var data: [Result] = []
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         // by default popular movie get loaded
         self.movieViewModel = MoviesViewModel()
         self.configuretableView()
         self.title = "Movies"
-        self.callbackForPopularMovies()
-        self.callbackForTopRatedMovies()
+        self.callbackForMovies()
         self.loadingIndicator.startAnimating()
         // set defualt tab
         self.segemetControl.selectedSegmentIndex = 0
@@ -33,46 +32,29 @@ class MoviesViewController: UIViewController {
         self.tableView.dataSource = self
     }
     @IBAction func segementControlValueChanged(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            // get popular movies
-            data = self.movieViewModel.popularMovies?.results ?? []
-        }else {
-            // get top rated movies
-            // check if toprated movie is already called from api if so then use existing data fetched from server
-            if self.movieViewModel.topRatedMovies != nil {
-                data = self.movieViewModel.topRatedMovies?.results ?? []
-            }else {
+        
+        movieViewModel.getMovieData(for: sender.selectedSegmentIndex) { isLoading in
+            if isLoading {
                 self.loadingIndicator.startAnimating()
-                self.movieViewModel.getTopRatedMovies()
             }
-            
         }
-        self.tableView.reloadData()
     }
     
     // call back once get data from api
-    private func callbackForPopularMovies(){
+    private func callbackForMovies(){
         
-        self.movieViewModel.bindPopularMoviesToController = {
+        self.movieViewModel.bindMoviesToController = {
             DispatchQueue.main.async { [self] in
-                data = self.movieViewModel.popularMovies?.results ?? []
                 self.tableView.reloadData()
                 self.loadingIndicator.stopAnimating()
             }
         }
     }
-    private func callbackForTopRatedMovies() {
-        self.movieViewModel.bindTopRatedToController = {
-            DispatchQueue.main.async { [self] in
-                data = self.movieViewModel.topRatedMovies?.results ?? []
-                self.tableView.reloadData()
-                self.loadingIndicator.stopAnimating()
-            }
-        }
-    }
+   
     private func callbackForError() {
         self.movieViewModel.bindErrorToController = {
             DispatchQueue.main.async { [self] in
+                
                 self.loadingIndicator.stopAnimating()
                 if self.movieViewModel.errorMessage != nil {
                         // show message to user using alert or toast
@@ -85,11 +67,11 @@ class MoviesViewController: UIViewController {
 
 extension MoviesViewController:  UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return movieViewModel.data.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
-        let result = data[indexPath.row]
+        let result = movieViewModel.data[indexPath.row]
         var config = cell.defaultContentConfiguration()
         config.text = result.title
         config.secondaryText = result.releaseDateString
@@ -117,7 +99,7 @@ extension MoviesViewController:  UITableViewDataSource {
 extension MoviesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let movie = self.data[indexPath.row]
+        let movie = movieViewModel.data[indexPath.row]
         if let destinationVc = self.getDetailVC(movie.id) {
             self.navigationController?.pushViewController(destinationVc, animated: true)
         }

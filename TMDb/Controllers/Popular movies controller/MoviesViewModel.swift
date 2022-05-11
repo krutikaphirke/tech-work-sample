@@ -8,27 +8,45 @@ import Foundation
 
 class MoviesViewModel {
     private var networkManger : NetworkManager!
-    private(set) var popularMovies : Movie? {
-        didSet {
-            self.bindPopularMoviesToController()
-        }
-    }
-    private(set) var topRatedMovies : Movie? {
-            didSet {
-                self.bindTopRatedToController()
-            }
-        }
+    private var popularMovies : Movie?
+    private var topRatedMovies : Movie?
     private(set) var errorMessage : String? {
         didSet {
             self.bindErrorToController()
         }
     }
-    var bindPopularMoviesToController : (() -> ()) = {}
+    private(set) var data : [Result] = [] {
+        didSet {
+            self.bindMoviesToController()
+        }
+    }
+    
+    var bindMoviesToController : (() -> ()) = {}
     var bindTopRatedToController : (() -> ()) = {}
     var bindErrorToController : (() -> ()) = {}
     init() {
         networkManger = NetworkManager()
         self.getPopularMovies()
+    }
+    func getMovieData(for type: Int = 0,callback: @escaping (_ isLoading: Bool) -> Void) {
+
+        if type == 0 {
+                // get popular movies
+            data = self.popularMovies?.results ?? []
+            callback(false)
+        }else {
+                // get top rated movies
+                // check if toprated movie is already called from api if so then use existing data fetched from server
+            if self.topRatedMovies != nil {
+                data = self.topRatedMovies?.results ?? []
+                callback(false)
+            }else {
+                self.getTopRatedMovies()
+                callback(true)
+                
+            }
+            
+        }
     }
     // get popular movies from server
     func getPopularMovies() {
@@ -37,6 +55,7 @@ class MoviesViewModel {
                 do {
                     let res = try JSONDecoder().decode(Movie.self, from: data)
                     self.popularMovies = res
+                    self.data = self.popularMovies?.results ?? []
                 } catch {
                     // error while decoding the data
                 }
@@ -60,6 +79,7 @@ class MoviesViewModel {
                 do {
                     let res = try JSONDecoder().decode(Movie.self, from: data)
                     self.topRatedMovies = res
+                    self.data = self.topRatedMovies?.results ?? []
                 } catch {
                         // error while decoding the data
                 }

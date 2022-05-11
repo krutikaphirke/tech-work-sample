@@ -98,20 +98,20 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		6504084928251BD40045D92A /* Popular movies controller */ = {
+		6504084928251BD40045D92A /* Movies controller */ = {
 			isa = PBXGroup;
 			children = (
 				65040836282500050045D92A /* MoviesViewController.swift */,
 				6504084C28251E3A0045D92A /* MoviesViewModel.swift */,
 			);
-			path = "Popular movies controller";
+			path = "Movies controller";
 			sourceTree = "<group>";
 		};
 		6504085028254C760045D92A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				6504086028291C490045D92A /* Detail controller */,
-				6504084928251BD40045D92A /* Popular movies controller */,
+				6504084928251BD40045D92A /* Movies controller */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

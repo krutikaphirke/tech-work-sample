@@ -94,20 +94,22 @@ struct ProductionCompany: Codable {
 
     // MARK: - ProductionCountry
 struct ProductionCountry: Codable {
-    let iso3166_1, name: String
+    let iso3166_1:Int?
+    let name: String?
     
     enum CodingKeys: String, CodingKey {
-        case iso3166_1 = ""
+        case iso3166_1
         case name
     }
 }
 
     // MARK: - SpokenLanguage
 struct SpokenLanguage: Codable {
-    let iso639_1, name: String
+    let iso639_1: Int?
+    let name: String?
     
     enum CodingKeys: String, CodingKey {
-        case iso639_1 = ""
+        case iso639_1
         case name
     }
 }

@@ -33,12 +33,12 @@ class DetailViewController: UIViewController {
 
     // call back once get data from api
     private func callToViewModelForUIUpdate(){
-        self.detailViewModel.bindDetailMoviesModelToController = {
+        self.detailViewModel.bindDetailMoviesModelToController = {[weak self] in
+            self?.loadImage()
             DispatchQueue.main.async {
-                self.loadImage()
-                self.tableView.reloadData()
-                self.loadingIndicator.stopAnimating()
-                if self.detailViewModel.errorMessage != nil {
+                self?.tableView.reloadData()
+                self?.loadingIndicator.stopAnimating()
+                if self?.detailViewModel.errorMessage != nil {
                         // show message to user using alert or toast
                 }
             }
@@ -46,7 +46,7 @@ class DetailViewController: UIViewController {
     }
     // load image
     private func loadImage(){
-        detailViewModel.getMoviePoster(detailViewModel.detail?.posterURL, completion: { [self] data in
+        detailViewModel.getMoviePoster(detailViewModel.detail?.posterURL, completion: { [weak self] data in
             var image: UIImage!
             if let data = data {
                image = UIImage(data: data)
@@ -55,7 +55,9 @@ class DetailViewController: UIViewController {
                     //There is error loading image
                 image = UIImage(systemName: "xmark.octagon.fill")
             }
-            self.moviewPoster.image = image
+            DispatchQueue.main.async {
+                self?.moviewPoster.image = image
+            }
         })
     }
     

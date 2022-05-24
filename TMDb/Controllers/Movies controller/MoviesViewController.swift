@@ -33,9 +33,9 @@ class MoviesViewController: UIViewController {
     }
     @IBAction func segementControlValueChanged(_ sender: UISegmentedControl) {
         
-        movieViewModel.getMovieData(for: sender.selectedSegmentIndex) { isLoading in
+        movieViewModel.getMovieData(for: sender.selectedSegmentIndex) {[weak self] isLoading in
             if isLoading {
-                self.loadingIndicator.startAnimating()
+                self?.loadingIndicator.startAnimating()
             }
         }
     }
@@ -43,26 +43,27 @@ class MoviesViewController: UIViewController {
     // call back once get data from api
     private func callbackForMovies(){
         
-        self.movieViewModel.bindMoviesToController = {
-            DispatchQueue.main.async { [self] in
-                self.tableView.reloadData()
-                self.loadingIndicator.stopAnimating()
+        self.movieViewModel.bindMoviesToController = {[weak self] in
+            DispatchQueue.main.async { 
+                self?.tableView.reloadData()
+                self?.loadingIndicator.stopAnimating()
             }
         }
     }
    
     private func callbackForError() {
         self.movieViewModel.bindErrorToController = {
-            DispatchQueue.main.async { [self] in
+            DispatchQueue.main.async { [weak self] in
                 
-                self.loadingIndicator.stopAnimating()
-                if self.movieViewModel.errorMessage != nil {
+                self?.loadingIndicator.stopAnimating()
+                if self?.movieViewModel.errorMessage != nil {
                         // show message to user using alert or toast
                 }
             }
         }
         
     }
+
 }
 
 extension MoviesViewController:  UITableViewDataSource {

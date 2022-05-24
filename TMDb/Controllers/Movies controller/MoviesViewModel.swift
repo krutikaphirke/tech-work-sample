@@ -81,6 +81,7 @@ class MoviesViewModel {
                     self.topRatedMovies = res
                     self.data = self.topRatedMovies?.results ?? []
                 } catch {
+                    
                         // error while decoding the data
                 }
             }

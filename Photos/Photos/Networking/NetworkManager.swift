@@ -13,9 +13,9 @@ struct NetworkManager {
         // Initialization
     private init() {urlSession = URLSession.shared }
     
-    func httpGet(url: URL,  callback: @escaping (Data?, ErrorHandler?) -> Void) {
-        print(url.absoluteString)
-        let task = urlSession.dataTask(with: url) { data, response, error in
+    func httpGet(url: String,  callback: @escaping (Data?, ErrorHandler?) -> Void) {
+        guard let finalURL = URL(string: url) else { return  }
+        let task = urlSession.dataTask(with: finalURL) { data, response, error in
                 
                 if error != nil {
                     callback(nil,ErrorHandler(code: 0, message: error?.localizedDescription ?? ""))

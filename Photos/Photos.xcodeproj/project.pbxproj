@@ -17,11 +17,11 @@
 		6504084B28251C8F0045D92A /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504084A28251C8F0045D92A /* Photo.swift */; };
 		6504084D28251E3A0045D92A /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504084C28251E3A0045D92A /* PhotoViewModel.swift */; };
 		6504084F282526EB0045D92A /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504084E282526EB0045D92A /* EndPoints.swift */; };
-		6504085C282586600045D92A /* UIImage + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504085B282586600045D92A /* UIImage + extension.swift */; };
 		6504086228291C790045D92A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504086128291C790045D92A /* DetailViewController.swift */; };
 		6504086428292A770045D92A /* DetailModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504086328292A770045D92A /* DetailModelView.swift */; };
-		6504086828292F3C0045D92A /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504086728292F3C0045D92A /* MovieDetail.swift */; };
 		6504086E28294E9B0045D92A /* UIViewController + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504086D28294E9B0045D92A /* UIViewController + extension.swift */; };
+		65637F58284551490009FF13 /* CGFloat + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65637F57284551490009FF13 /* CGFloat + extension.swift */; };
+		65637F5A28455C560009FF13 /* Int + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65637F5928455C560009FF13 /* Int + extension.swift */; };
 		65ED72522843840F00189C0F /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ED72512843840F00189C0F /* PhotoCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,11 +38,11 @@
 		6504084A28251C8F0045D92A /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		6504084C28251E3A0045D92A /* PhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewModel.swift; sourceTree = "<group>"; };
 		6504084E282526EB0045D92A /* EndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
-		6504085B282586600045D92A /* UIImage + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + extension.swift"; sourceTree = "<group>"; };
 		6504086128291C790045D92A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		6504086328292A770045D92A /* DetailModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModelView.swift; sourceTree = "<group>"; };
-		6504086728292F3C0045D92A /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
 		6504086D28294E9B0045D92A /* UIViewController + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + extension.swift"; sourceTree = "<group>"; };
+		65637F57284551490009FF13 /* CGFloat + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat + extension.swift"; sourceTree = "<group>"; };
+		65637F5928455C560009FF13 /* Int + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + extension.swift"; sourceTree = "<group>"; };
 		65ED72512843840F00189C0F /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,7 +121,6 @@
 			isa = PBXGroup;
 			children = (
 				6504084A28251C8F0045D92A /* Photo.swift */,
-				6504086728292F3C0045D92A /* MovieDetail.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -129,8 +128,9 @@
 		6504085A282586460045D92A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				6504085B282586600045D92A /* UIImage + extension.swift */,
 				6504086D28294E9B0045D92A /* UIViewController + extension.swift */,
+				65637F57284551490009FF13 /* CGFloat + extension.swift */,
+				65637F5928455C560009FF13 /* Int + extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -228,15 +228,15 @@
 				65040837282500050045D92A /* PhotosViewController.swift in Sources */,
 				6504084B28251C8F0045D92A /* Photo.swift in Sources */,
 				65040833282500050045D92A /* AppDelegate.swift in Sources */,
-				6504085C282586600045D92A /* UIImage + extension.swift in Sources */,
 				6504084F282526EB0045D92A /* EndPoints.swift in Sources */,
 				65040835282500050045D92A /* SceneDelegate.swift in Sources */,
+				65637F5A28455C560009FF13 /* Int + extension.swift in Sources */,
 				6504084D28251E3A0045D92A /* PhotoViewModel.swift in Sources */,
 				6504086428292A770045D92A /* DetailModelView.swift in Sources */,
+				65637F58284551490009FF13 /* CGFloat + extension.swift in Sources */,
 				6504086E28294E9B0045D92A /* UIViewController + extension.swift in Sources */,
 				65ED72522843840F00189C0F /* PhotoCollectionViewCell.swift in Sources */,
 				65040848282517110045D92A /* NetworkManager.swift in Sources */,
-				6504086828292F3C0045D92A /* MovieDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

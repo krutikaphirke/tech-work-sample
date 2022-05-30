@@ -13,9 +13,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     func loadImage(_ downloadURL: String) {
         //enchancement can be done using caching the image instead loading all over again
-        guard let url = URL(string:downloadURL) else { return  }
         self.imageLoadingIndicator.startAnimating()
-        NetworkManager.shared.httpGet(url: url) { data, error in
+        NetworkManager.shared.httpGet(url: downloadURL) { data, error in
                 DispatchQueue.main.async {
                     var image: UIImage!
                     if let data = data {

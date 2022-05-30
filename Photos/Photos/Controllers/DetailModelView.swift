@@ -1,7 +1,8 @@
 
 import Foundation
+import UIKit
 class DetailViewModel {
-    private(set) var detail : PhotoDetail? {
+    private(set) var detail : Photo? {
         didSet {
             self.bindDetailMoviesModelToController()
         }
@@ -11,7 +12,7 @@ class DetailViewModel {
             self.bindDetailMoviesModelToController()
         }
     }
-
+    let imageSize = CGSize(width: UIScreen.main.bounds.width, height: 250.0)
     var bindDetailMoviesModelToController : (() -> ()) = {}
     var imageLoaded:((Data?) -> ()) = {_ in }
     init(_ id: String) {
@@ -25,16 +26,17 @@ class DetailViewModel {
     }
     func getProperImageFor(index: Int) {
         var finalURL = ""
+        guard let ID = detail?.id else { return  }
         switch (index) {
             case 0:
                 // get normal image
-                finalURL = detail?.normalImagURL ?? ""
+                finalURL = Endpoint.normalPhoto(ID, ofType: .normal, size: imageSize)
             case 1:
                 // get blur image
-                finalURL = detail?.blurImageURL ?? ""
+                finalURL = Endpoint.normalPhoto(ID, ofType: .blur(5.toString()), size: imageSize)
             case 2:
                 // get grayScale Image
-                finalURL = detail?.grayscaleImageURL ?? ""
+                finalURL = Endpoint.normalPhoto(ID, ofType: .gray, size: imageSize)
             default:
                 finalURL = ""
         }
@@ -43,10 +45,10 @@ class DetailViewModel {
         }
     }
     func getNormalPhoto(_ id: String, callback: @escaping (Bool) -> Void) {
-        NetworkManager.shared.httpGet(url: Endpoint.photoDetail(id).url) { data, error in
+        NetworkManager.shared.httpGet(url: Endpoint.photoDetail(id)) { data, error in
             if let data = data {
                 do {
-                    let res = try JSONDecoder().decode(PhotoDetail.self, from: data)
+                    let res = try JSONDecoder().decode(Photo.self, from: data)
                     self.detail = res
                     callback(true)
                 } catch {
@@ -68,8 +70,7 @@ class DetailViewModel {
     
     // get image from url
     private func getPhoto(_ downloadURL : String, completion: @escaping (Data?) -> Void) {
-        guard let url = URL(string: downloadURL) else { return}
-        NetworkManager.shared.httpGet(url: url) { data, error in
+        NetworkManager.shared.httpGet(url: downloadURL) { data, error in
                 completion(data)
         }
     }

@@ -27,7 +27,7 @@ class PhotoViewModel {
     
     // get popular movies from server
     func getPhotos() {
-        NetworkManager.shared.httpGet(url: Endpoint.photoList(pageNumber, limit: limit).url) { data, error in
+        NetworkManager.shared.httpGet(url: Endpoint.photoList) { data, error in
             if let data = data {
                 do {
                     let res = try JSONDecoder().decode([Photo].self, from: data)

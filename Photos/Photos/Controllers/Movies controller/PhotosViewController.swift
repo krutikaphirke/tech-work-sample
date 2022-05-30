@@ -61,7 +61,7 @@ extension PhotosViewController  {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
         let photo = self.movieViewModel.data[indexPath.row]
-        cell.loadImage(photo.normalImagURL(width: width))
+        cell.loadImage(Endpoint.normalPhoto(photo.id, ofType: .normal, size: CGSize(width: width, height: width)))
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
